@@ -1,10 +1,21 @@
-BÀN TAY VÔ HÌNH / BÀN TAY HỮU HÌNH — Trang thuyết trình CQ2 (MLN122, Nhóm 2)
+BÀN TAY VÔ HÌNH / BÀN TAY HỮU HÌNH — Trang thuyết trình CQ2 (SS008, Nhóm 2)
 =========================================================================
 
-CÁCH MỞ
-- Giải nén, mở file index.html bằng Chrome / Edge / Safari / Firefox. Không cần cài đặt hay build.
-- Nên có Internet lần đầu để tải phông Be Vietnam Pro và Newsreader (Google Fonts).
-  Nếu offline, trang vẫn chạy bình thường với phông hệ thống thay thế.
+CÁCH MỞ (phải chạy qua HTTP server — KHÔNG nháy đúp index.html)
+- Lý do: js/scene3d.js là ES module; mở bằng file:// thì Chrome / Edge / Firefox chặn vì CORS
+  (origin 'null') nên mất toàn bộ sân khấu 3D, chỉ còn phần chữ và hiệu ứng CSS.
+- Cách 1 (tiện nhất trên Windows): nháy đúp mo-web.cmd ở thư mục gốc dự án — tự chạy server
+  cổng 8080 rồi mở trình duyệt. Muốn cổng khác: mo-web.cmd 9000
+- Cách 2 (Python, có sẵn): cd ban-tay-web
+                           python -m http.server 8080 --bind 127.0.0.1
+                           rồi mở http://127.0.0.1:8080/index.html
+- Cách 3 (Node): npx --yes serve . -l 8080   (hoặc npx --yes http-server -p 8080 -c-1)
+- Cách 4 (VS Code): cài extension Live Server, chuột phải index.html > Open with Live Server.
+  (Không khuyến nghị: chrome --allow-file-access-from-files — hạ bảo mật, có máy vẫn chặn.)
+- Không cần cài đặt hay build.
+- Cần Internet khi mở trang: three.js (unpkg), GSAP + Lenis (jsdelivr) và phông Be Vietnam Pro,
+  Newsreader (Google Fonts) — vì các thư viện này nạp từ CDN.
+  Nếu offline: phần chữ vẫn hiện (phông hệ thống thay thế) nhưng mất sân khấu 3D và hiệu ứng cuộn.
 
 CẤU TRÚC
   index.html      Toàn bộ nội dung tiếng Việt (hero + 8 mục + chân trang)
